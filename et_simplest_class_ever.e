@@ -1,0 +1,4 @@
+class
+	ET_SIMPLEST_CLASS_EVER
+
+end
