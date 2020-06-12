@@ -261,6 +261,63 @@ feature -- Test routines
 			assert_predicate ("assert_predicate", l_pred)
 		end
 
+	test_strings_and_things
+			-- Various forms of {STRING} testing assertions!
+		note
+			explanation_for_diffs: "[
+				Be aware that the `assert_strings_equal_diff' is coming from {TEST_SET_SUPPORT},
+				which is NOT an Eiffel Software core testing class. It is one especially created
+				by me for a purpose. The purpose was (and is) to not only see that strings are
+				not equal, but WHERE they differentiate from each other! This is especially helpful
+				in very long and complex strings.
+				
+				The call to `assert_strings_equal_diff' is used twice (below). In the second
+				instance you will see how it helps if you change one of the "x" values in `l_message'.
+				]"
+		local
+			l_message: STRING
+		do
+				-- If we are really just that insensitive, then "blah" and "BLAH" are the same!
+			assert_strings_case_insensitive_equal ("case_insensitive", "blah", "BLAH")
+				-- Otherwise, we care (STRING-SJW's UNITE!)
+			assert_strings_equal ("we_now_care", "blah", "blah") -- using "BLAH" will FAIL! (let the protests begin!)
+
+			assert_strings_equal_diff ("show_me_the_diffs", "blah", "blah") -- See "explanation_for_diffs" note (above)
+
+			l_message := assert_strings_equal_message ("the_message", "x", "x")
+			assert_strings_equal_diff ("strings_equal_message", strings_equal_message, l_message)
+
+			assert_strings_not_equal ("notted_version", "blah", "BLAH") -- now we care, but in the notted version.
+			l_message := assert_strings_not_equal_message ("notted_message", "", "")
+				-- perhaps you get the idea already ...
+		end
+
+	test_assert_void
+			-- How to use a `assert_void' test.
+		note
+			explanation: "[
+				Our final tour-de-force of assertion tests turns back to the notion
+				of attachment and detachment in terms of references to objects.
+				
+				In this case, we want to test whether a reference is attached or not.
+				There are several ways to to this (see below)
+				
+				A couple of alternatives are demonstrated as well. The second alternative
+				is really convoluted (i.e. it does not "read well" at all)!
+				]"
+		local
+			l_void_ref: detachable STRING
+		do
+			assert_void ("assert_void", Void)
+			assert_void ("detached_reference", l_void_ref) -- the `l_void_ref' {STRING} will not be "attached" by default.
+
+				-- We could also accomplish such a thing this way ...
+			assert ("another_way", not attached l_void_ref) -- it's a little more verbose, but the idea is still clear.
+				-- Yet another way (more convoluted) ...
+			assert_equal ("detached", False, attached l_void_ref)
+
+		end
+
 feature {NONE} -- Test Support
 
 	my_true_predicate: BOOLEAN = True
@@ -287,6 +344,12 @@ notted_version
    should not match: assert_equal_message
    expected: Void
    but  got: Void
+]"
+
+	strings_equal_message: STRING = "[
+the_message
+   expected: x
+   but  got: x
 ]"
 
 end
