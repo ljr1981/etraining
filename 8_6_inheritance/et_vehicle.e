@@ -16,6 +16,7 @@ feature -- Settings
 			--
 		do
 			drive := a_drive
+			check attached drive as al_drive then al_drive.set_motor (motor) end
 		end
 
 end

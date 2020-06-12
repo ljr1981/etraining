@@ -20,13 +20,13 @@ feature -- Status Report
 	is_operating_as_car: BOOLEAN
 			-- Is current a Car?
 		do
-			Result := attached {like wheels} drive
+			Result := attached {like wheels} drive as al_drive and then al_drive.is_engaged
 		end
 
 	is_operating_as_submarine: BOOLEAN
 			-- Is current a Submarine?
 		do
-			Result := attached {like props} drive
+			Result := attached {like props} drive as al_drive and then al_drive.is_engaged
 		end
 
 feature -- Basic Operations
@@ -35,6 +35,8 @@ feature -- Basic Operations
 			-- Disengage the `motor' from the `drive'
 		do
 			drive := Void
+		ensure
+			not is_operating_as_car and not is_operating_as_submarine
 		end
 
 	engage_as_car
@@ -42,7 +44,10 @@ feature -- Basic Operations
 		do
 			check has_wheels: attached {ET_DRIVE} wheels as al_mechanism then
 				set_drive (al_mechanism)
+				al_mechanism.engage (motor)
 			end
+		ensure
+			is_operating_as_car and not is_operating_as_submarine
 		end
 
 	engage_as_submarine
@@ -50,7 +55,18 @@ feature -- Basic Operations
 		do
 			check has_wheels: attached {ET_DRIVE} props as al_mechanism then
 				set_drive (al_mechanism)
+				al_mechanism.engage (motor)
 			end
+		ensure
+			is_operating_as_submarine and not is_operating_as_car
 		end
+
+invariant
+	car: is_operating_as_car implies not is_operating_as_submarine
+	sub: is_operating_as_submarine implies not is_operating_as_car
+	engaged: (is_operating_as_car xor is_operating_as_submarine) implies
+				attached drive as al_drive and then al_drive.is_engaged
+	not_engaged: not (is_operating_as_car xor is_operating_as_submarine) implies
+				not attached drive
 
 end
