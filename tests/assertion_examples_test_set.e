@@ -5,7 +5,7 @@ note
 	testing: "type/manual"
 
 class
-	ETRAINING_TEST_SET
+	ASSERTION_EXAMPLES_TEST_SET
 
 inherit
 	TEST_SET_SUPPORT
