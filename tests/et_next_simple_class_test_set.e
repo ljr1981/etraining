@@ -28,6 +28,9 @@ feature -- Test routines
 				t7		Test that the default of `example_real' is (in fact) 0.0 typed as {REAL_32}
 				t8		Test that the default of `example_double' is 0.0 (does not need specific type definition)
 				]"
+			EIS: "name=ECMA-367_8.30_basic_data_types", "protocol=pdf", "type=file",
+					"nameddest=8.32.23 Special characters and their codes",
+					"src=$GITHUB/etraining/ECMA-367.pdf"
 		local
 			l_object: ET_NEXT_SIMPLE_CLASS
 		do
