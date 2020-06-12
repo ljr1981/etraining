@@ -170,8 +170,17 @@ feature -- Test routines
 			assert_characters_not_equal ("assert_characters_not_equal", '%U', '%N')
 		end
 
-	test_assert_equal_message
+	test_assert_equal_or_not
+			-- How to use a `assert_equal' test.
+			-- Or `assert_not_equal' (the notted version)
+		do
+			assert_equal ("assert_equal", True, True)
+			assert_not_equal ("assert_not_equal", True, False)
+		end
+
+	test_assert_equal_message_or_not
 			-- How to use a `assert_equal_message' test.
+			-- Or the `assert_not_equal_message' (the notted version)
 		note
 			use_case: "[
 				We have a failing test and we want to grab its message and
@@ -190,6 +199,9 @@ feature -- Test routines
 
 			l_message := assert_equal_message ("more_words_please", "BLAH", "BLAH2")
 			assert_strings_equal ("more_words_are", more_words_message, l_message)
+
+			l_message := assert_not_equal_message ("notted_version", void_message, more_words_message)
+			assert_strings_equal ("void_not_blah", void_not_blah, l_message)
 		end
 
 	test_assert_integers_equal_or_not
@@ -212,7 +224,48 @@ feature -- Test routines
 			assert_integers_not_equal ("and_not_equal_now", 0, l_value) -- Line above made them not-equal.
 		end
 
+	test_assert_old
+			-- Apparently, you're not supposed to use this, but
+			-- I don't get why. How is it old? What does "old"
+			-- mean in this context? This is all very confusing! :-)
+		do
+			assert_old ("assert_old", True)
+		end
+
+	test_assert_predicate
+			-- How to use a `assert_predicate' test.
+			-- Check that `pred` evaluates to True.
+		note
+			prerequisite: "[
+				You must have a basic understanding of agents
+					before this will fully make sense to you!
+				]"
+			explanation: "[
+				The {PREDICATE} class descends from {FUNCTION} from {ROUTINE}.
+				A predicate is just a function that returns a {BOOLEAN} result.
+				The predicate might take arguments, but in the example (below)
+				we have no arguments. We simply use a {BOOLEAN} constant as
+				our predicate.
+				
+				Once we have a {BOOLEAN} returning function, we can then create
+				an "agent" out of it (ex: "l_pred := agent my_predicate"). With
+				that, we can then call the `assert_predicate' routine, which
+				expects a call on `l_pred' (e.g. l_pred.call) to evaluate to True.
+				If so, then the test passes. If not, it fails.
+				]"
+			warning: "There is no `notted' version of this. Result must always be True."
+		local
+			l_pred: PREDICATE
+		do
+			l_pred := agent my_true_predicate
+			assert_predicate ("assert_predicate", l_pred)
+		end
+
 feature {NONE} -- Test Support
+
+	my_true_predicate: BOOLEAN = True
+			-- The basis feature for creating an "agent" to
+			-- give to a {PREDICATE} reference.
 
 	void_message: STRING = "[
 assert_equal_message
@@ -224,6 +277,16 @@ assert_equal_message
 more_words_please
    expected: BLAH
    but  got: BLAH2
+]"
+
+	void_not_blah: STRING = "[
+notted_version
+   got actual value: more_words_please
+   expected: BLAH
+   but  got: BLAH2
+   should not match: assert_equal_message
+   expected: Void
+   but  got: Void
 ]"
 
 end
