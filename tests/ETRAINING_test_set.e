@@ -55,7 +55,7 @@ feature -- Test routines
 		end
 
 	test_assert_arrays_reference_equal
-			-- how to use the `assert_arrays_reference_equal' test.
+			-- How to use the `assert_arrays_reference_equal' test.
 			-- Check that `expected` and `actual` have the same items
 			-- in the same order (use '=' for item comparison).
 		local
@@ -66,6 +66,38 @@ feature -- Test routines
 			l_actual := l_expected
 			assert_arrays_reference_equal ("assert_arrays_reference_equal", l_expected, l_actual)
 			assert ("this_is_the_same_as", l_expected = l_actual) -- because they both point to (reference) the same Object.
+		end
+
+	test_assert_attached
+			-- How to use the `assert_attached' test.
+			-- Check that `object` is attached.
+		note
+			explanation: "[
+				Attachment is how we describe a Reference having an "attached" (assigned)
+				Pointer to an actual Object in memory.
+				
+				A "detached" Reference (or assignment) is:
+				
+				Reference --> Void ...
+				
+				An "attached" Reference (or assignment) is:
+				
+				Reference --> Pointer --> Object
+				
+				Where "Reference" is a key:value pair, where we know the "key" (reference name)
+					and "value" is the "Pointer", which points to an Object in the memory of
+					our system.
+				]"
+		local
+			l_object_reference: detachable STRING
+		do
+				-- At this point, `l_object_reference' is a reference that is "not attached"
+				-- That is--it does not have a pointer to an actual object in memory.
+				-- We prove this with a simple test.
+			assert ("not_attached", not attached l_object_reference)
+				-- Now, we attach it (provide it an object and "assign" the reference to it).
+			l_object_reference := "any_string_at_all"
+			assert_attached ("assert_attached", l_object_reference)
 		end
 
 end
