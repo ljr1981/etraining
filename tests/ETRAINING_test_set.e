@@ -170,4 +170,30 @@ feature -- Test routines
 			assert_characters_not_equal ("assert_characters_not_equal", '%U', '%N')
 		end
 
+	test_assert_equal_message
+			-- How to use a `assert_equal_message' test.
+		local
+			l_message: STRING_32
+		do
+			l_message := assert_equal_message ("assert_equal_message", Void, Void)
+			assert_strings_equal ("what_is_the_message", void_message, l_message)
+
+			l_message := assert_equal_message ("more_words_please", "BLAH", "BLAH2")
+			assert_strings_equal ("more_words_are", more_words_message, l_message)
+		end
+
+feature {NONE} -- Test Support
+
+	void_message: STRING = "[
+assert_equal_message
+   expected: Void
+   but  got: Void
+]"
+
+	more_words_message: STRING = "[
+more_words_please
+   expected: BLAH
+   but  got: BLAH2
+]"
+
 end
