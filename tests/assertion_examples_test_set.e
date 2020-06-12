@@ -1,4 +1,4 @@
-note
+﻿note
 	description: "[
 		Demonstration of AutoTest Assertions using {TEST_SET_SUPPORT}
 	]"
@@ -12,6 +12,7 @@ note
 		-- that is ... stop complaining about ...
 	ca_ignore: "CA093" -- Manifest array type differs from target array type.
 	ca_ignore: "CA085" -- Unneeded helper variable
+	ca_ignore: "CA069" -- Call to obsolete feature (see class notes at bottom)
 
 class
 	ASSERTION_EXAMPLES_TEST_SET
@@ -397,5 +398,24 @@ the_message
    expected: x
    but  got: x
 ]"
+
+;note
+	explaining_ca069: "[
+		Presently, the Code Analyzer complains about the following:
+
+		2	CA069	Call to obsolete feature as_string_8: For 32-bit strings:…	ASSERTION_EXAMPLES_TEST_SET	330, 17	50
+				Obsolete feature as_string_8 of class STRING_32 is called from test_strings_and_things of class ASSERTION_EXAMPLES_TEST_SET:
+			For 32-bit strings:
+				- use explicit conversion `to_string_8` with a test that the string is made of ASCII characters only.
+			For 8-bit strings:
+				- consider changing the type of reattachmanet target to READABLE_STRING_8 or
+				- use explicit conversion `to_string_8` to avoid implicit performance penalty.
+		The obsolete feature call has to be removed in 171 days.
+
+		This complaint is not the result of this code! The complaint is actually rooted
+		in the Eiffel testing library code. There is nothing for us to handle other than
+		turn off ("ca_ignore") the complaint for this class, which we have done!
+
+		]"
 
 end
