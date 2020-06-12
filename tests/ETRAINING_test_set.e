@@ -200,6 +200,9 @@ feature -- Test routines
 				This is also another great place to see the difference
 				between reference and expanded types.
 				]"
+			FYI: "Did you know you can create your own expanded type classes?"
+			EIS: "name=underused_expanded_types",
+					"src=https://www.eiffel.org/node/391"
 		local
 			l_value: INTEGER
 		do
