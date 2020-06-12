@@ -1,7 +1,7 @@
 ﻿note
 	EIS: "name=OOSC2", "protocol=pdf", "type=file", "namedest=8.7 COMPOSITE OBJECTS AND EXPANDED TYPES",
 			"src=$GITHUB/etraining/OOSC2.pdf"
-	EIS: "name=ECMA-367_8.30_basic_data_types", "protocol=pdf", "type=file", "nameddest=8.30 Basic Types",
+	EIS: "name=8_5_features", "protocol=pdf", "type=file", "nameddest=8.5 Features",
 			"src=$GITHUB/etraining/ECMA-367.pdf"
 
 	basic_data_types: "[

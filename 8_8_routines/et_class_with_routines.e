@@ -21,6 +21,8 @@
 		
 		See the notes at the bottom of the class for more.
 		]"
+	EIS: "name=8_8_routines", "protocol=pdf", "type=file", "nameddest=8.8 Routines",
+			"src=$GITHUB/etraining/ECMA-367.pdf"
 
 class
 	ET_CLASS_WITH_ROUTINES

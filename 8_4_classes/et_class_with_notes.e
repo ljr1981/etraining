@@ -23,8 +23,8 @@
 		You may have seen an external (EIS or Eiffel Information System) note
 		already, but in case you have not, see the EIS-link below.
 		]"
-	EIS: "name=ECMA-367", "protocol=pdf", "type=file",
-			"nameddest=8.4 Classes",
+	EIS: "name=8_4_3_Syntax_Notes", "protocol=pdf", "type=file",
+			"nameddest=8.4.3 Syntax: Notes",
 			"src=$GITHUB/etraining/ECMA-367.pdf"
 
 class
