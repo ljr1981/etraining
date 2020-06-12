@@ -172,6 +172,16 @@ feature -- Test routines
 
 	test_assert_equal_message
 			-- How to use a `assert_equal_message' test.
+		note
+			use_case: "[
+				We have a failing test and we want to grab its message and
+				use it somehow. To do this, we use the `assert_equal_message'.
+				It turns out that this is really just a call to `assert_equal'
+				and then grabbing the message of it when it fails, and returning
+				whatever the message is that would normally appear in the 
+				AutoTest results output pane (below in the EiffelStudio IDE 
+				"AutoTest Results tab").
+				]"
 		local
 			l_message: STRING_32
 		do
@@ -180,6 +190,23 @@ feature -- Test routines
 
 			l_message := assert_equal_message ("more_words_please", "BLAH", "BLAH2")
 			assert_strings_equal ("more_words_are", more_words_message, l_message)
+		end
+
+	test_assert_integers_equal_or_not
+			-- How to use a `assert_integers_equal' test.
+			-- Or `assert_integers_not_equal' (the notted version).
+		note
+			explanation: "[
+				This is also another great place to see the difference
+				between reference and expanded types.
+				]"
+		local
+			l_value: INTEGER
+		do
+			assert_integers_equal ("assert_integers_equal", 0, 0)
+			assert_integers_equal ("ref_vs_expanded", 0, l_value) -- We can do this because `l_value' is expanded and defaulted to 0.
+			l_value := 1
+			assert_integers_not_equal ("and_not_equal_now", 0, l_value) -- Line above made them not-equal.
 		end
 
 feature {NONE} -- Test Support
