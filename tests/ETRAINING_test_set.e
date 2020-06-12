@@ -107,6 +107,7 @@ feature -- Test routines
 
 	test_assert_booleans_equal_or_not
 			-- How to use a `assert_booleans_equal' test.
+			-- Or `assert_booleans_not_equal' (the notted version)
 		note
 			explanation: "[
 				Not only will we see how to test {BOOLEAN} expanded types,
@@ -141,6 +142,32 @@ feature -- Test routines
 			assert_booleans_not_equal ("even_here", False, True)
 			assert_booleans_equal ("compare_ref_to_expanded", l_true, True)
 			assert_booleans_not_equal ("works_other_way_as_well", False, l_true)
+		end
+
+	test_assert_characters_equal_or_not
+			-- How to use a `assert_characters_equal' test.
+			-- or `assert_characters_not_equal' (the notted version)
+		note
+			explanation: "[
+				When we say {CHARACTER}, we must be aware of what "set" we are
+				referring to--there are many. Mostly, we are going to care about
+				ASC-II (see EIS link below). This consists of a "set" of 256 Latin
+				characters originally defined in 1967 as the American Standard Code 
+				for Information Interchange (ASCII).
+				
+				The Eiffel compiler is coded to understand certain "escaped-characters"
+				as being equal to various ASCII characters. For example the %U points
+				to the 0-th character (NULL). Likewise, %N = Newline, %T = TAB and so on.
+				
+				See the EIS link below of the ECMA list of Special character and their codes.
+				]"
+			EIS: "name=ASCII", "src=https://en.wikipedia.org/wiki/ASCII"
+			EIS: "name=ECMA-367_8.30_basic_data_types", "protocol=pdf", "type=file",
+					"nameddest=8.32.23 Special characters and their codes",
+					"src=$GITHUB/etraining/ECMA-367.pdf"
+		do
+			assert_characters_equal ("assert_characters_equal", '%U', '%U')
+			assert_characters_not_equal ("assert_characters_not_equal", '%U', '%N')
 		end
 
 end
