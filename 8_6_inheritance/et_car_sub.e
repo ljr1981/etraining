@@ -31,6 +31,12 @@ feature -- Status Report
 
 feature -- Basic Operations
 
+	disengage_drive
+			-- Disengage the `motor' from the `drive'
+		do
+			drive := Void
+		end
+
 	engage_as_car
 			-- Engage Current as a car driving by its `wheels'.
 		do
