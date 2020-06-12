@@ -7,7 +7,7 @@ class
 
 feature
 
-	begin_at_the_beginning: ET_SIMPLEST_CLASS_EVER
+	begin_at_the_beginning: ET_BASE_CLASS
 		note
 			what_is_this: "[
 				This is an example of the simplest class possible.

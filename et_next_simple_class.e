@@ -16,7 +16,7 @@ class
 	ET_NEXT_SIMPLE_CLASS
 
 inherit
-	ET_SIMPLEST_CLASS_EVER
+	ET_BASE_CLASS
 
 feature -- Access (e.g. Basic Data Types as Attributes)
 

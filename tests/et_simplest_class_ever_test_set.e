@@ -1,6 +1,6 @@
 note
 	description: "[
-		Tests related to {ET_SIMPLEST_CLASS_EVER}
+		Tests related to {ET_BASE_CLASS}
 	]"
 	testing: "type/manual"
 
@@ -13,14 +13,14 @@ inherit
 feature -- Test routines
 
 	simple_class_test
-			-- Testing of {ET_SIMPLEST_CLASS_EVER}.
+			-- Testing of {ET_BASE_CLASS}.
 		note
 			thoughts: "[
 				The class has no attributes or computing features, so there is
 				really nothing to test except creating one.
 				]"
 		do
-			assert_attached ("successful_create", create {ET_SIMPLEST_CLASS_EVER})
+			assert_attached ("successful_create", create {ET_BASE_CLASS})
 		end
 
 end
