@@ -42,13 +42,30 @@ feature -- Test routines
 
 	test_assert_arrays_equal
 			-- How to use the `assert_arrays_equal' test.
+			-- Check that `expected` and `actual` have the same items
+			-- in the same order (use equal for item comparison).
 		local
-			l_expected, l_actual: ARRAY [INTEGER]
+			l_expected,
+			l_actual: ARRAY [INTEGER]
 		do
 			assert_arrays_equal ("assert_arrays_equal", <<>>, <<>>)
 			l_expected := <<1, 2, 3>>
 			l_actual := <<1, 2, 3>>
 			assert_arrays_equal ("assert_arrays_equal_2", l_expected, l_actual)
+		end
+
+	test_assert_arrays_reference_equal
+			-- how to use the `assert_arrays_reference_equal' test.
+			-- Check that `expected` and `actual` have the same items
+			-- in the same order (use '=' for item comparison).
+		local
+			l_expected,
+			l_actual: ARRAY [INTEGER]
+		do
+			l_expected := <<1, 2, 3>>
+			l_actual := l_expected
+			assert_arrays_reference_equal ("assert_arrays_reference_equal", l_expected, l_actual)
+			assert ("this_is_the_same_as", l_expected = l_actual) -- because they both point to (reference) the same Object.
 		end
 
 end
