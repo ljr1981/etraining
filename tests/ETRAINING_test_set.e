@@ -87,6 +87,11 @@ feature -- Test routines
 				Where "Reference" is a key:value pair, where we know the "key" (reference name)
 					and "value" is the "Pointer", which points to an Object in the memory of
 					our system.
+					
+				Note then that a "detachable" Reference (e.g. like `l_object_reference' below)
+					is one that can be either attached or detached and is detached by default.
+					Declaring the reference as "detachable" means that Eiffel creates the Reference
+					but does not expect an Object or a Pointer to it.
 				]"
 		local
 			l_object_reference: detachable STRING
