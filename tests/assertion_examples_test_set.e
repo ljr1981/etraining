@@ -85,7 +85,6 @@ feature -- Test routines
 				Code Analyzer. In this case, we want you to see the problem, so we've told
 				the analyzer to ignore the error (e.g. "ca_ignore" note) and left the code
 				to facilitate this explanation.
-
 				]"
 		local
 			l_expected,
