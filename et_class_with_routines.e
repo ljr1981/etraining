@@ -1,4 +1,4 @@
-note
+﻿note
 	description: "A class with routines"
 	explanation: "[
 		A routine is a feature of a class that has code to
@@ -52,8 +52,23 @@ feature -- Routines: Queries
 			Result := m + o + r + e
 		end
 
-	still_more: TUPLE
-			-- What are the `more' values?
+	whats_more: TUPLE
+			-- What's more?
+		note
+			explanation: "[
+				So—what's a {TUPLE} anyway?
+				
+				It's like you want a Date with Class, but all you get
+				is a "cheap date" with a {TUPLE}! He doesn't do
+				anything for you, but he does talk (provides data) a lot!
+				
+				TUPLES are a great way to gather data together without
+				the need to compute anything (change the data).
+				
+				In the case below, we package up the values of `m', `o',
+				`r', and `e' and put them in our Result {TUPLE}, which
+				answers the question: `whats_more'?
+				]"
 		do
 			Result := [m, o, r, e]
 		end

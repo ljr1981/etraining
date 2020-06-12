@@ -33,6 +33,9 @@ feature -- Test routines
 			assert_integers_equal ("more_1", 24, l_item.more)				-- Query: 		What's `more' now?
 			l_item.set_em_up_joe											-- Command: 	You are getting that this does nothing `more', right?
 			assert_integers_equal ("more_default_v4", 24, l_item.more)		-- Query: 		What's `more' now? Still the same!
+
+				-- Finally, let's ask: ...
+			assert_equal ("whats_more", [3, 4, 10, 7], l_item.whats_more)
 		end
 
 end
