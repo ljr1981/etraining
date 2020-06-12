@@ -105,4 +105,42 @@ feature -- Test routines
 			assert_attached ("assert_attached", l_object_reference)
 		end
 
+	test_assert_booleans_equal_or_not
+			-- How to use a `assert_booleans_equal' test.
+		note
+			explanation: "[
+				Not only will we see how to test {BOOLEAN} expanded types,
+				but also reference types. We will also see how to test
+				negation (not equal) as well.
+				
+				Your biggest take-away here is seeing how reference types
+				and expanded types play together nicely, but YOU need to
+				keep in your head that an expanded type is the thing itself
+				(e.g. True or False - binary/int 1 or 0), while a reference
+				has a pointer to the thing itself. The comparisons (tests)
+				are ultimately reaching for the "thing itself" (expanded object)
+				to base the test on.
+				
+				UNLESS you are wanting to test the references--that is--you
+				want to see if two references point to the same thing.
+				(look back up to the array reference test)
+				]"
+		local
+			l_true,
+			l_false,
+			l_expected,
+			l_actual: BOOLEAN
+		do
+			l_true := True -- We MUST do this because expanded type BOOLEAN defaults to False
+			-- Thus, we do not need to assign (attach the reference) `l_false' to False.
+			l_expected := l_true
+			l_actual := True
+			assert_booleans_equal ("assert_booleans_equal", l_expected, l_actual)
+			assert_booleans_equal ("two_expandeds_are_equal", True, True)
+			assert_booleans_equal ("the_same_is_true_here", False, False)
+			assert_booleans_not_equal ("even_here", False, True)
+			assert_booleans_equal ("compare_ref_to_expanded", l_true, True)
+			assert_booleans_not_equal ("works_other_way_as_well", False, l_true)
+		end
+
 end
