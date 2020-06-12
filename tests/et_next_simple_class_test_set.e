@@ -13,7 +13,7 @@ inherit
 feature -- Test routines
 
 	basic_types_test
-			-- Testing of {ET_NEXT_SIMPLE_CLASS}.
+			-- Testing of {ET_CLASS_WITH_ATTRIBUTES}.
 		note
 			tests_explained: "[
 				Test#	Explanation
@@ -32,7 +32,7 @@ feature -- Test routines
 					"nameddest=8.32.23 Special characters and their codes",
 					"src=$GITHUB/etraining/ECMA-367.pdf"
 		local
-			l_object: ET_NEXT_SIMPLE_CLASS
+			l_object: ET_CLASS_WITH_ATTRIBUTES
 		do
 			create l_object
 

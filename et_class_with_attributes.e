@@ -13,7 +13,7 @@
 		]"
 
 class
-	ET_NEXT_SIMPLE_CLASS
+	ET_CLASS_WITH_ATTRIBUTES
 
 inherit
 	ET_BASE_CLASS

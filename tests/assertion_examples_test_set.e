@@ -4,6 +4,15 @@ note
 	]"
 	testing: "type/manual"
 
+	ca_ignore_what_is_that_about: "[
+		The `ca_ignore' note clauses (below) are here to prevent the
+		Eiffel Code Analyzer from complaining about various things.
+		]"
+
+		-- that is ... stop complaining about ...
+	ca_ignore: "CA093" -- Manifest array type differs from target array type.
+	ca_ignore: "CA085" -- Unneeded helper variable
+
 class
 	ASSERTION_EXAMPLES_TEST_SET
 
@@ -44,11 +53,46 @@ feature -- Test routines
 			-- How to use the `assert_arrays_equal' test.
 			-- Check that `expected` and `actual` have the same items
 			-- in the same order (use equal for item comparison).
+		note
+			analysis_warning: "[
+				In this routine, the Code Analyzer will give us the following warning:
+				
+				CA093	Manifest array type differs from target array type.
+				
+						Manifest array of type ARRAY [NONE] is used in a reattachment 
+							with target type ARRAY [detachable ANY]:
+							
+				What it really means is: We created a couple of empty "manifest arrays"
+					(i.e. "<<>>") and the Eiffel Compiler cannot figure them out fully.
+					It knows they are a manifest array because of the "<<>>", but an
+					array of what? It has no clue, unless we provide one.
+					
+				The analyzer gives us three potential options for dealing with the matter:
+							
+					Option #1 - add an explicit manifest array type;
+					Option #2 - change target type to make sure the types are the same;
+					Option #3 - disable the rule "Manifest array type mismatch" in the code 
+						analizer preferences or add the rule CA093 to the list of 
+						ignored rules of the class.
+						
+				In our code (below), we have used option #2 on the second assertion call.
+					In this case, instead of saying just "<<>>", we've provided an explicit
+					type in the form of "{ARRAY [INTEGER]} <<>>". Now, the Eiffel Compiler
+					no longer has to partially know, because we explicity tell it that
+					our manifest array is an {ARRAY [INTEGER]} (array of integers).
+					
+				Providing the explicit type declaration on the manifest array satisfies the
+				Code Analyzer. In this case, we want you to see the problem, so we've told
+				the analyzer to ignore the error (e.g. "ca_ignore" note) and left the code
+				to facilitate this explanation.
+
+				]"
 		local
 			l_expected,
 			l_actual: ARRAY [INTEGER]
 		do
-			assert_arrays_equal ("assert_arrays_equal", <<>>, <<>>)
+			assert_arrays_equal ("assert_arrays_equal_v1", <<>>, <<>>) -- See `analysis_warning' note (above)
+			assert_arrays_equal ("assert_arrays_equal_v2", {ARRAY [INTEGER]} <<>>, {ARRAY [INTEGER]} <<>>)
 			l_expected := <<1, 2, 3>>
 			l_actual := <<1, 2, 3>>
 			assert_arrays_equal ("assert_arrays_equal_2", l_expected, l_actual)
@@ -290,6 +334,9 @@ feature -- Test routines
 			assert_strings_not_equal ("notted_version", "blah", "BLAH") -- now we care, but in the notted version.
 			l_message := assert_strings_not_equal_message ("notted_message", "", "")
 				-- perhaps you get the idea already ...
+			l_message.do_nothing 	-- Satisfies Code Analyzer warning:
+									-- CA020 Local l_message is not read after assignment.
+
 		end
 
 	test_assert_void
