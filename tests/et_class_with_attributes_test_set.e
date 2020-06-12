@@ -5,7 +5,7 @@ note
 	testing: "type/manual"
 
 class
-	ET_NEXT_SIMPLE_CLASS_TEST_SET
+	ET_CLASS_WITH_ATTRIBUTES_TEST_SET
 
 inherit
 	TEST_SET_SUPPORT
