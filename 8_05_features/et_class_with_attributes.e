@@ -64,7 +64,8 @@ feature -- Access (e.g. Basic Data Types as Attributes)
 
 	reference_type: "[
 		A name with a {POINTER} to an object, but not the object itself.
-		Example: my_value: INTEGER is a reference to an object with a value.
+		Example: my_value: MY_OBJECT is a reference to an object with a value.
+		This will not be true for expanded types of similar construction.
 		See: expanded_type
 		]"
 
