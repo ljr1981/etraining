@@ -16,10 +16,10 @@ feature -- Test routines
 			l_item: ET_GENERIC_CAR_SUB
 		do
 			create l_item
-			l_item.engage_as_car
-			l_item.disengage_drive
-			l_item.engage_as_sub
-			l_item.disengage_drive
+--			l_item.engage_as_car
+--			l_item.disengage_drive
+--			l_item.engage_as_sub
+--			l_item.disengage_drive
 		end
 
 end
