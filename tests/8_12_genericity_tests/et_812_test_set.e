@@ -3,7 +3,7 @@ note
 	testing: "type/manual"
 
 class
-	ET_GENERICITY_TEST_SET
+	ET_812_TEST_SET
 
 inherit
 	EQA_TEST_SET

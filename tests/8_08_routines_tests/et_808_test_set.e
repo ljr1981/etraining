@@ -2,7 +2,7 @@ note
 	testing: "type/manual"
 
 class
-	ET_CLASS_WITH_ROUTINES_TEST_SET
+	ET_808_TEST_SET
 
 inherit
 	TEST_SET_SUPPORT
