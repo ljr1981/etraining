@@ -31,7 +31,7 @@ class
 	ET_CLASS_WITH_NOTES
 
 inherit
-	ET_BASE_CLASS
+	ET_CLASS
 
 note
 	what_is_BNFE: "[
@@ -44,7 +44,7 @@ note
 		brackets is required and must be there.
 		
 		Therefore, for a Class_declaration, we must have a Class_header
-		and the "end" keyword. You can see this demonstrated in {ET_BASE_CLASS}
+		and the "end" keyword. You can see this demonstrated in {ET_CLASS}
 		]"
 
 end

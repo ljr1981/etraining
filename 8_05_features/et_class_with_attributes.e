@@ -16,7 +16,7 @@ class
 	ET_CLASS_WITH_ATTRIBUTES
 
 inherit
-	ET_BASE_CLASS
+	ET_CLASS
 
 feature -- Access (e.g. Basic Data Types as Attributes)
 

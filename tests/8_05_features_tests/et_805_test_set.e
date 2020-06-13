@@ -5,7 +5,7 @@ note
 	testing: "type/manual"
 
 class
-	ET_CLASS_WITH_ATTRIBUTES_TEST_SET
+	ET_805_TEST_SET
 
 inherit
 	TEST_SET_SUPPORT
@@ -46,6 +46,11 @@ feature -- Test routines
 			assert_equal 			("t7_example_real_typed", 		{REAL_32} 0.0, 	l_object.example_real)
 			assert_equal			("t8_example_double",			0.0,			l_object.example_double)
 		end
+
+feature {NONE} -- Anchors
+
+	feature_categories_anchor: detachable ET_FEATURE_CATEGORIES
+			-- A type anchor to bring this class "in-system"
 
 end
 
