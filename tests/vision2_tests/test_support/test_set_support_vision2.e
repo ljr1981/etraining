@@ -40,15 +40,23 @@ feature -- Access
 			-- A window for demonstration of widgets.
 		local
 			l_box: EV_VERTICAL_BOX
+			l_inner_box: EV_HORIZONTAL_BOX
 		do
 			create Result.make_with_title ("Demonstration: " + a_primitive.generating_type)
 			create l_box
-			l_box.extend (a_primitive)
-			l_box.disable_item_expand (a_primitive)
-			l_box.set_border_width (3)
-			l_box.set_padding (3)
+			create l_inner_box
+			l_inner_box.extend (create {EV_CELL})
+			l_inner_box.extend (a_primitive)
+			l_inner_box.extend (create {EV_CELL})
+			l_inner_box.disable_item_expand (a_primitive)
+			l_inner_box.set_border_width (3)
+			l_inner_box.set_padding (3)
+			l_box.extend (create {EV_CELL})
+			l_box.extend (l_inner_box)
+			l_box.extend (create {EV_CELL})
+			l_box.disable_item_expand (l_inner_box)
 			Result.extend (l_box)
-			Result.set_size (400, 400)
+			Result.set_size (400, 300)
 		end
 
 	application: EV_APPLICATION
