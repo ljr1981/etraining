@@ -38,7 +38,7 @@ feature -- Test routines
 			l_item.extend (l_list_item)
 
 				-- Setup and Demo
-			show_me := True
+			show_me := False
 			demonstrate_widget (l_item)
 		end
 
