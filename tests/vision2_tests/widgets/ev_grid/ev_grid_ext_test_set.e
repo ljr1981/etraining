@@ -61,7 +61,7 @@ feature -- Test routines
 			l_container.extend (l_grid_ext)
 			l_container.extend (l_grid)
 
-			show_me := True
+			show_me := False
 			demonstrate_widget (l_container)
 		end
 
