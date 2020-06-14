@@ -29,7 +29,7 @@ feature -- Test routines
 			create l_list_item.make_with_text ("Top Node")
 			l_list_item.extend (create {EV_TREE_ITEM}.make_with_text ("Child 1"))
 			l_list_item.extend (create {EV_TREE_ITEM}.make_with_text ("Child 2"))
-			add_item_clicked_me_dialog (l_list_item)
+			l_list_item.select_actions.extend (agent on_item_click)
 			l_item.extend (l_list_item)
 
 			create l_list_item.make_with_text ("Next Node")
@@ -38,7 +38,7 @@ feature -- Test routines
 			l_item.extend (l_list_item)
 
 				-- Setup and Demo
-			show_me := False
+			show_me := True
 			demonstrate_widget (l_item)
 		end
 
