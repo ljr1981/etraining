@@ -34,4 +34,5 @@ feature -- Test routines
 			show_me := False
 			demonstrate_widget (l_item)
 		end
+		
 end
