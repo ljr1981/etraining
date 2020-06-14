@@ -9,7 +9,7 @@ inherit
 
 feature -- Basic Operations
 
-	demonstrate_widget (a_widget: EV_PRIMITIVE)
+	demonstrate_widget (a_widget: attached like test_item_anchor)
 			-- Demonstration of `a_widget' in a window.
 		local
 			l_app: EV_APPLICATION
@@ -36,7 +36,7 @@ feature -- Status Report
 
 feature -- Access
 
-	demo_window (a_primitive: EV_PRIMITIVE): ET_TS_WINDOW
+	demo_window (a_primitive: attached like test_item_anchor): ET_TS_WINDOW
 			-- A window for demonstration of widgets.
 		local
 			l_box, l_frame_box: EV_VERTICAL_BOX
@@ -81,6 +81,10 @@ feature -- Access
 			Result.extend (l_box)
 			Result.set_size (400, 300)
 		end
+
+	test_item_anchor: detachable EV_WIDGET
+			-- What type is our core test item?
+			-- Alternatively, {EV_PRIMITIVE}?
 
 	filler_cell_frame: EV_FRAME
 			-- A frame representing an {EV_CELL} for display.

@@ -10,10 +10,10 @@ inherit
 
 feature -- Test routines
 
-	ev_button_tests
-			-- Demonstration of a basic EV_BUTTON
+	ev_check_button_tests
+			-- Demonstration of a basic EV_CHECK_BUTTON
 		note
-			testing:  "covers/{EV_BUTTON}.make_with_text", "execution/isolated", "execution/serial"
+			testing:  "covers/{EV_CHECK_BUTTON}.make_with_text", "execution/isolated", "execution/serial"
 			usage: "Set `show_me' to True, recompile, and run this test to interact with `l_item'."
 		local
 			l_item: EV_CHECK_BUTTON
