@@ -64,6 +64,7 @@ feature -- Test routines
 
 				-- CHECKABLE item
 			create l_checkable.make_with_text ("I am checkable?")
+			l_checkable.key_press_actions.extend (agent on_checkable_keypress (?, l_checkable))
 			l_item.set_item (1, 3, l_checkable)
 
 				-- CHOICE item (dropdown list)
@@ -117,7 +118,7 @@ feature -- Test routines
 			l_item.header [2].set_text ("Alt Col 2")
 
 				-- Setup and Demo
-			show_me := False
+			show_me := True
 			demonstrate_widget (l_item)
 		end
 
@@ -127,6 +128,14 @@ feature -- Test routines
 		do
 			if attached a_field as al_field then
 				al_field.select_all
+			end
+		end
+
+	on_checkable_keypress (a_key: EV_KEY; a_item: EV_GRID_CHECKABLE_LABEL_ITEM)
+			-- What happens on keypress Enter/Space of checkable grid item?
+		do
+			if a_key.code = a_key.Key_enter or a_key.code = a_key.Key_space then
+				a_item.toggle_is_checked
 			end
 		end
 
