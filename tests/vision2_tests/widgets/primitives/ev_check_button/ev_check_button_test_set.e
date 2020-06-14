@@ -19,10 +19,9 @@ feature -- Test routines
 			l_item: EV_CHECK_BUTTON
 		do
 				-- Standard Creation
-			create l_item.make_with_text ("OK")
+			create l_item.make_with_text ("Checkbox?")
 
 				-- Setup and Demo
-			add_clicked_me_dialog (l_item)
 			show_me := False
 			demonstrate_widget (l_item)
 		end
