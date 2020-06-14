@@ -1,5 +1,5 @@
 note
-	description: "Demonstration of EV_BUTTON"
+	description: "Demonstration of {EV_BUTTON}"
 	testing: "type/manual"
 
 class
@@ -41,7 +41,7 @@ feature -- Test routines
 				-- Enhancements
 			l_item.set_tooltip ("What you get when you hover.")
 			l_item.set_background_color (create {EV_COLOR}.make_with_8_bit_rgb (128, 128, 128))
-			l_item.set_foreground_color (create {EV_COLOR}.make_with_8_bit_rgb (255, 0, 0))
+			l_item.set_foreground_color (create {EV_COLOR}.make_with_8_bit_rgb (0, 127, 0))
 			l_item.set_minimum_size (100, 50)
 
 				-- Setup and Demo

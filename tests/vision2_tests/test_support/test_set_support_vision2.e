@@ -39,24 +39,63 @@ feature -- Access
 	demo_window (a_primitive: EV_PRIMITIVE): ET_TS_WINDOW
 			-- A window for demonstration of widgets.
 		local
-			l_box: EV_VERTICAL_BOX
-			l_inner_box: EV_HORIZONTAL_BOX
+			l_box, l_frame_box: EV_VERTICAL_BOX
+			l_inner_box, l_inner_frame_box: EV_HORIZONTAL_BOX
+			l_box_frame, l_inner_frame, l_primitive_frame: EV_FRAME
 		do
 			create Result.make_with_title ("Demonstration: " + a_primitive.generating_type)
-			create l_box
+
+				-- Inner frame Hbox
+			create l_inner_frame.make_with_text ("{EV_HORIZONTAL_BOX}")
+			l_inner_frame.set_foreground_color (create {EV_COLOR}.make_with_8_bit_rgb (0, 0, 255))
+			create l_inner_frame_box
+			l_inner_frame_box.extend (filler_cell_frame)
+			create l_primitive_frame.make_with_text ("{" + a_primitive.generating_type + "} widget")
+			l_primitive_frame.set_foreground_color (create {EV_COLOR}.make_with_8_bit_rgb (0, 150, 0))
+			l_inner_frame_box.extend (l_primitive_frame)
+			l_primitive_frame.extend (a_primitive)
+			l_primitive_frame.set_border_width (3)
+			l_inner_frame_box.extend (filler_cell_frame)
+			l_inner_frame_box.set_border_width (3)
+			l_inner_frame.extend (l_inner_frame_box)
+
+				-- Inner Hbox
 			create l_inner_box
-			l_inner_box.extend (create {EV_CELL})
-			l_inner_box.extend (a_primitive)
-			l_inner_box.extend (create {EV_CELL})
-			l_inner_box.disable_item_expand (a_primitive)
+			l_inner_box.extend (l_inner_frame)
 			l_inner_box.set_border_width (3)
 			l_inner_box.set_padding (3)
-			l_box.extend (create {EV_CELL})
-			l_box.extend (l_inner_box)
-			l_box.extend (create {EV_CELL})
-			l_box.disable_item_expand (l_inner_box)
+
+				-- Outer Vbox
+			create l_box
+			create l_frame_box
+			create l_box_frame.make_with_text ("{EV_VERTICAL_BOX}")
+			l_box_frame.set_foreground_color (create {EV_COLOR}.make_with_8_bit_rgb (0, 0, 255))
+			l_frame_box.extend (filler_cell_frame)
+			l_frame_box.extend (l_inner_box)
+			l_frame_box.extend (filler_cell_frame)
+			l_frame_box.set_border_width (3)
+			l_frame_box.set_padding (3)
+			l_frame_box.disable_item_expand (l_inner_box)
+			l_box_frame.extend (l_frame_box)
+			l_box.extend (l_box_frame)
 			Result.extend (l_box)
 			Result.set_size (400, 300)
+		end
+
+	filler_cell_frame: EV_FRAME
+			-- A frame representing an {EV_CELL} for display.
+		local
+			l_box: EV_VERTICAL_BOX
+		do
+			create Result.make_with_text ("{EV_CELL}")
+			Result.set_style ({EV_FRAME_CONSTANTS}.Ev_frame_lowered)
+			Result.set_foreground_color (create {EV_COLOR}.make_with_8_bit_rgb (255, 0, 0))
+			create l_box
+			l_box.set_background_color (create {EV_COLOR}.make_with_rgb (50, 50, 50))
+			l_box.set_border_width (3)
+			l_box.set_padding (3)
+			Result.extend (l_box)
+			Result.set_border_width (3)
 		end
 
 	application: EV_APPLICATION
