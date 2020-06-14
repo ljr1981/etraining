@@ -17,6 +17,7 @@ feature -- Test routines
 			usage: "Set `show_me' to True, recompile, and run this test to interact with `l_item'."
 		local
 			l_item: EV_CHECKABLE_LIST
+			l_list_item: EV_LIST_ITEM
 		do
 				-- Standard Creation
 			create l_item.make_with_strings (<<"Item 1", "Item 2", "Item 3", "Item 4">>)
@@ -25,7 +26,9 @@ feature -- Test routines
 			l_item.set_minimum_size (100, 100)
 
 				-- Other Enhancements
-			l_item.extend (create {EV_LIST_ITEM}.make_with_text ("Item 5"))
+			create l_list_item.make_with_text ("Item 5")
+			add_item_clicked_me_dialog (l_list_item)
+			l_item.extend (l_list_item)
 
 				-- Setup and Demo
 			show_me := False

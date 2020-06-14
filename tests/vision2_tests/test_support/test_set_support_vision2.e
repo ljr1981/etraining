@@ -105,6 +105,12 @@ feature -- Access
 
 feature -- GUI Components
 
+	add_item_clicked_me_dialog (a_item: EV_ITEM)
+			-- What to show when `a_item' is clicked.
+		do
+			a_item.pointer_button_press_actions.extend (agent on_click)
+		end
+
 	add_clicked_me_dialog (a_primitive: EV_PRIMITIVE)
 			-- What to show when a widget is clicked.
 		do
@@ -113,6 +119,12 @@ feature -- GUI Components
 
 	on_click (i1, i2, i3: INTEGER_32; r1, r2, r3: REAL_64; i4, i5: INTEGER_32)
 			-- What happens `on_click' (e.g. pointer_button_press_actions)?
+		do
+			on_item_click
+		end
+
+	on_item_click
+			--
 		local
 			l_dialog: EV_INFORMATION_DIALOG
 		do
