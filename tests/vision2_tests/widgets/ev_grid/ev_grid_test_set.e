@@ -123,6 +123,8 @@ feature -- Test routines
 			demonstrate_widget (l_item)
 		end
 
+feature {NONE} -- Implentation
+
 	on_editable_select (a_popup: EV_POPUP_WINDOW; a_field: detachable EV_TEXT_FIELD)
 			-- One way to support {EV_GRID_EDITABLE_ITEM} activation
 			--	for doing a "select_all" on the resulting text field.
@@ -143,12 +145,11 @@ feature -- Test routines
 	on_choice_item_keypress (a_key: EV_KEY; a_item: EV_GRID_CHOICE_ITEM)
 			-- What happens on keypress Enter/Space of checkable grid item?
 		do
-			if a_key.code = a_key.Key_enter or a_key.code = a_key.Key_space then
+			if
+				a_key.code = a_key.Key_enter or
+				a_key.code = a_key.Key_space
+			then
 				a_item.activate
-			elseif a_key.code = a_key.Key_up then
-				a_item.activate
-			elseif a_key.code = a_key.Key_down then
-				a_item.deactivate
 			end
 		end
 
