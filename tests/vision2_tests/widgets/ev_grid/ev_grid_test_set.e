@@ -72,7 +72,8 @@ feature -- Test routines
 			l_choice.set_item_strings (<<"Choice 1", "Choice 2", "Choice 3">>)
 			l_item.set_item (1, 4, l_choice)
 			l_choice.enable_full_select -- `l_choice' need a "parent" before this
-			l_choice.select_actions.force (agent l_choice.activate) -- We are responsible for `activate'
+			--l_choice.select_actions.extend (agent l_choice.activate) -- We are responsible for `activate'
+			l_choice.key_press_actions.extend (agent on_choice_item_keypress (?, l_choice))
 
 				-- COMBO 1 (editable combo)
 				-- We can edit whatever is selected or in the edit box.
@@ -136,6 +137,18 @@ feature -- Test routines
 		do
 			if a_key.code = a_key.Key_enter or a_key.code = a_key.Key_space then
 				a_item.toggle_is_checked
+			end
+		end
+
+	on_choice_item_keypress (a_key: EV_KEY; a_item: EV_GRID_CHOICE_ITEM)
+			-- What happens on keypress Enter/Space of checkable grid item?
+		do
+			if a_key.code = a_key.Key_enter or a_key.code = a_key.Key_space then
+				a_item.activate
+			elseif a_key.code = a_key.Key_up then
+				a_item.activate
+			elseif a_key.code = a_key.Key_down then
+				a_item.deactivate
 			end
 		end
 
