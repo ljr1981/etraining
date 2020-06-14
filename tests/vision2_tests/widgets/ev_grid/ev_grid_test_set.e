@@ -33,10 +33,11 @@ feature -- Test routines
 	ev_grid_populated_demo
 			-- Demonstration of a basic EV_GRID with rows and columns.
 		note
-			testing:  "covers/{EV_GRID}.make_with_text", "execution/isolated", "execution/serial"
+			testing:  "covers/{EV_GRID}.default_create", "execution/isolated", "execution/serial"
 			usage: "Set `show_me' to True, recompile, and run this test to interact with `l_item'."
 			explanation: "[
 				This grid adds a couple columns and rows.
+				It also adds some grid common grid items.
 				]"
 		local
 			l_item: EV_GRID
@@ -61,38 +62,48 @@ feature -- Test routines
 			l_item.set_item (2, 2, create {EV_GRID_LABEL_ITEM}.make_with_text ("c2,r2"))
 			l_item.column (1).set_width (150)
 
-				-- More specialized items
+				-- CHECKABLE item
 			create l_checkable.make_with_text ("I am checkable?")
 			l_item.set_item (1, 3, l_checkable)
 
+				-- CHOICE item (combo-box)
 			create l_choice.make_with_text ("I have a choice!")
 			l_choice.set_item_strings (<<"Choice 1", "Choice 2", "Choice 3">>)
 			l_item.set_item (1, 4, l_choice)
 			l_choice.enable_full_select -- `l_choice' need a "parent" before this
 			l_choice.select_actions.force (agent l_choice.activate) -- We are responsible for `activate'
 
+				-- COMBO 1
 			create l_combo.make_with_text ("combo?")
 			l_item.set_item (1, 5, l_combo)
 			l_combo.set_item_strings (<<"Item 1", "Item 2", "Item 3", "Item 4">>) -- set items
 			l_combo.select_actions.extend (agent l_combo.activate) -- handle activation
 
+				-- COMBO 2
 			create l_combo.make_with_text ("Non-editable combo")
 			l_item.set_item (1, 6, l_combo)
 			l_combo.disable_select
 			l_combo.set_item_strings (<<"Item 1", "Item 2", "Item 3", "Item 4">>) -- set items
 			l_combo.select_actions.extend (agent l_combo.activate) -- handle activation
 
+				-- DRAWABLE
+				-- See also: EV_DRAWING_AREA (a similar thing)
 			create l_drawable
 			l_item.set_item (1, 7, l_drawable)
 
+				-- EDITABLE
 			create l_editable.make_with_text ("You can edit me")
 			l_item.set_item (1, 8, l_editable)
 			l_editable.activate_actions.extend (agent on_editable_select (?, l_editable.text_field))
 			l_editable.select_actions.extend (agent l_editable.activate) -- handle activation
 
+				-- PIX RIGHT
+				-- similar to EV_GRID_LABEL_ITEM, except it has extra pixmaps on the right
 			create l_pix_right.make_with_text ("Pix right")
 			l_item.set_item (1, 9, l_pix_right)
 			l_pix_right.set_pixmap ((create {EV_STOCK_PIXMAPS_IMP}).information_pixmap)
+			l_pix_right.set_pixmaps_on_right_count (1) -- prep-step to putting pix on right
+			l_pix_right.put_pixmap_on_right ((create {EV_STOCK_PIXMAPS_IMP}).information_pixmap, 1) -- in posn we just created
 
 				-- Once we have columns, we can populate the {EV_GRID_HEADER_ITEM} over each.
 				-- Note that as each column is created, it automatically gets
