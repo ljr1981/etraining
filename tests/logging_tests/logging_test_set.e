@@ -19,6 +19,25 @@ feature -- Test routines
 			-- New test routine
 		note
 			testing:  "execution/isolated", "execution/serial"
+			explanation: "[
+				Possible log levels: UNKNO < EMERG < ALERT < CRIT < ERROR < WARN < NOTIC < INFO < DEBUG
+				Default UNKNO, no logging at all.
+				
+				So, if you set:
+				
+				l_log.default_log_writer_file.enable_notice_log_level
+				
+				Then, you will get everything from EMERG -> NOTIC, but not INFO or DEBUG!
+				
+				This can be quite useful in your program. Normally speaking, you will not
+				want DEBUG, just INFO and below. Any DEBUG writes in your code will be ignored.
+				However, if you then have a need for debug logging, you can raise the level
+				and start generating debug level log messages.
+				
+				You may even want different loggers (writers) going to different
+				files or repositories altogether. This is a very flexible design
+				space!
+				]"
 		local
 			l_log: LOG_LOGGING_FACILITY
 			l_file: PLAIN_TEXT_FILE
