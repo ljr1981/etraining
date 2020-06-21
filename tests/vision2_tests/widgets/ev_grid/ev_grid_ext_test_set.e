@@ -10,10 +10,10 @@ inherit
 
 feature -- Test routines
 
-	jv_grid_demo
-			-- Demonstration of a basic JV_GRID
+	ev_grid_ext_demo
+			-- Demonstration of a basic EV_GRID_EXT
 		note
-			testing:  "covers/{EV_GRID}.make_with_text", "execution/isolated", "execution/serial"
+			testing:  "covers/{EV_GRID_EXT}.make_with_text", "execution/isolated", "execution/serial"
 			usage: "Set `show_me' to True, recompile, and run this test to interact with `l_item'."
 			explanation: "[
 				This is an empty grid with nothing in it.
@@ -30,8 +30,8 @@ feature -- Test routines
 			demonstrate_widget (l_item)
 		end
 
-	jv_grid_populated_sidexside_demo
-			-- Demonstration of a basic EV_GRID with rows and columns.
+	ev_grid_ext_populated_sidexside_demo
+			-- Demonstration of a basic EV_GRID_EXT with rows and columns.
 		note
 			testing:  "covers/{EV_GRID_EXT}.default_create", "execution/isolated", "execution/serial"
 			usage: "Set `show_me' to True, recompile, and run this test to interact with `l_item'."

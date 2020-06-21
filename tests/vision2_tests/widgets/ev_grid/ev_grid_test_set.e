@@ -119,7 +119,7 @@ feature -- Test routines
 			l_item.header [2].set_text ("Alt Col 2")
 
 				-- Setup and Demo
-			show_me := True
+			show_me := False
 			demonstrate_widget (l_item)
 		end
 
