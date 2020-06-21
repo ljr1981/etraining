@@ -121,19 +121,19 @@ feature -- Testing
 			--| Path location preferences
 			l_manager := l_standard_prefs.new_manager ("locations")
 				if attached (create {DIRECTORY}.make ({EXECUTION_ENVIRONMENT}.Root_directory_name)) as al_install_directory then
-					l_path_pref := l_factory.new_path_preference_value (l_manager, "locations.eiffel_studio", al_install_directory.path)
-					l_path_pref.set_description ("Path to the latest installation of EiffelStudio.")
+					l_path_pref := l_factory.new_path_preference_value (l_manager, "locations.root", al_install_directory.path)
+					l_path_pref.set_description ("Path to the root directory.")
 				end
 
 			--| Blacklisted ECFs
 			l_manager := l_standard_prefs.new_manager ("blacklist")
-				l_string_list_pref := l_factory.new_string_list_preference_value (l_manager, "blacklist.blacklisted_ecfs", <<>>)
-				l_string_list_pref.set_description ("A CSV list of ECF files from any location that you do not want processed by this Wizard or available to be used for any reason.%NEXAMPLE: this.ecf,that.ecf,my.ecf,your.ecf")
+				l_string_list_pref := l_factory.new_string_list_preference_value (l_manager, "blacklist.blacklisted_files", <<>>)
+				l_string_list_pref.set_description ("A CSV list of files from any location that you do not want processed or available to be used for any reason.%NEXAMPLE: this.file,that.file,my.file,your.your")
 
 			--| User Defined ECF folders
 			l_manager := l_standard_prefs.new_manager ("user_defined")
 				l_path_list_pref := l_factory.new_path_list_preference_value (l_manager, "user_defined.list.paths", <<>>)
-				l_path_list_pref.set_description ("A CSV list of paths to folders you want searched and available for ECF inclusion and selection.")
+				l_path_list_pref.set_description ("A CSV list of paths to folders you want searched and available for inclusion and selection.")
 
 --			--| Basic preferences under "examples"
 			l_manager := l_standard_prefs.new_manager ("examples")
