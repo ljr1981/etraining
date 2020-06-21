@@ -125,17 +125,17 @@ feature -- Testing
 					l_path_pref.set_description ("Path to the root directory.")
 				end
 
-			--| Blacklisted ECFs
+			--| Blacklisted Files
 			l_manager := l_standard_prefs.new_manager ("blacklist")
 				l_string_list_pref := l_factory.new_string_list_preference_value (l_manager, "blacklist.blacklisted_files", <<>>)
 				l_string_list_pref.set_description ("A CSV list of files from any location that you do not want processed or available to be used for any reason.%NEXAMPLE: this.file,that.file,my.file,your.your")
 
-			--| User Defined ECF folders
+			--| User Defined folders
 			l_manager := l_standard_prefs.new_manager ("user_defined")
 				l_path_list_pref := l_factory.new_path_list_preference_value (l_manager, "user_defined.list.paths", <<>>)
 				l_path_list_pref.set_description ("A CSV list of paths to folders you want searched and available for inclusion and selection.")
 
---			--| Basic preferences under "examples"
+			--| Basic preferences under "examples"
 			l_manager := l_standard_prefs.new_manager ("examples")
 				l_integer_pref := l_factory.new_integer_preference_value (l_manager, "examples.my_integer", 10)
 				l_array_pref := l_factory.new_array_preference_value (l_manager, "examples.my_list", <<"1","2","3">>)
@@ -145,8 +145,7 @@ feature -- Testing
 					l_array_pref.set_selected_index (2)
 				end
 
---				--| Graphical preferences under "examples"
-
+				--| Graphical preferences under "examples"
 				create l_font.make_with_values (1, 6, 10, 8)
 				l_font.preferred_families.extend ("verdana")
 				l_font.preferred_families.extend ("arial")
