@@ -14,34 +14,101 @@ feature -- Testing
 			-- Demonstration of how to get preferences setup
 		note
 			testing:  "execution/isolated", "execution/serial"
+			explanation: "[
+				HOW TO (and WHY)
+				================
+				Preferences follow a basic pattern. The first step in
+				that pattern is to understand how with this Preferences
+				Library, you build up Preferences using a Preference
+				Factory and a Domain Manager. The steps are basically:
+				
+				1. Determine how to store your prefs (XML, Registry)
+				2. Create your Preferences list with 
+					2a) Defaults (e.g. hard coded/specified in XML file)
+					2b) Storage (e.g. where to put changes that the user makes)
+						* e.g. you won't see this "user.conf" file until the user changes something.
+				3. Create a Factory
+				4. For each Preference Domain, create a Manager
+					4b. Create the new Manager from the Preferences
+					4c. For each Preference item, create it from a Factory + Manager
+						(i.e. l_my_bool_pref := l_factory.new_boolean_preference_value (l_manager, "domain.pref_name", [True/False]))
+				5. Rinse-and-Repeat 4 to 4C for each Domain + Preference item
+					you want in your Preferences set (list)
+					
+				STORAGE NOTES
+				=============
+				There are at least N places where a set of Preferences are stored:
+				
+				1. Memory - Your code will want to call a routine that sets up
+					preferences (like the example code below) as the program is
+					starting and before the preference values are needed. Be sure
+					to have sufficient access program-wide. Perhaps a once'd reference.
+				2. Default - The XML example below uses a "default.conf" XML file
+					as a disk-based resource for loading your preferences instead of
+					building them up in code. This means there are two ways of 
+					setting up your default preferences. Note that user pref changes
+					will overwrite these if they exist.
+				3. User - When the user makes changes to the preferences, they are
+					stored into a repository (e.g. XML file or Registry entries).
+					As long as the user makes no changes, the repo (e.g. file) will
+					not be created. If the user resets all their changes back to
+					the default (see above), the repo is deleted (XML file removed
+					or Registry entries removed).
+				4. Backup - This is NOT required or even needed. The example below
+					creates a "backup.conf" XML file, which is really just a glorified
+					"default.conf" XML file. It is here as a way to provde you with
+					an example XML file to understand how preferences look in a
+					unicode XML file and its structure.
+				]"
+			BNFE: "[
+				Preferences ::=
+					{Domain}*
+					
+				Domain :=
+					{Preference}*
+				]"
+			glossary: "[
+				Preference set: A list of Domains, each with a set of Preference items.
+				
+				Preference item: A single preference (e.g. boolean checkbox or font preference)
+				
+				Domain: A subset of Preference item(s) in the Preference set, denoted by
+						a dot-call-delineated list (i.e. dot-separated-text-values).
+						(e.g. display.input_screens.font can implies a preference for
+						 a particular font for input-screens in the domain of things
+						 displayed)
+				]"
 		local
+				-- Preferences & Storage
+			l_standard_prefs: detachable PREFERENCES	-- List of Preferences (w/domains & mgrs)
+			l_backup_storage,							-- An XML file to store default prefs
+			l_main_storage: PREFERENCES_STORAGE_XML		-- An XML file to store user changes to prefs
+
 				-- Factory Manager(s)
-			l_factory: GRAPHICAL_PREFERENCE_FACTORY
-			l_manager: PREFERENCE_MANAGER
+			l_factory: GRAPHICAL_PREFERENCE_FACTORY		-- Factory to create Prefs for Mgrs
+			l_manager: PREFERENCE_MANAGER				-- A Manager responsible for each pref domain
 
-				-- Preferences
-			l_boolean_pref: BOOLEAN_PREFERENCE
-			l_integer_pref: INTEGER_PREFERENCE
-			l_array_pref: ARRAY_PREFERENCE
-			l_string_pref: STRING_PREFERENCE
-			l_string32_pref: STRING_32_PREFERENCE
-			l_font_pref: FONT_PREFERENCE
-			l_color_pref: COLOR_PREFERENCE
-			l_path_pref: PATH_PREFERENCE
-			l_string_list_pref: STRING_LIST_PREFERENCE
-			l_path_list_pref: PATH_LIST_PREFERENCE
-			l_string_choice_pref: STRING_CHOICE_PREFERENCE
-			l_path_choice_pref: PATH_CHOICE_PREFERENCE
-
-			l_standard_prefs: detachable PREFERENCES
-			l_backup_storage: PREFERENCES_STORAGE_XML
+				-- Preference items
+			l_boolean_pref: BOOLEAN_PREFERENCE				-- A BOOLEAN pref (checkbox)
+			l_integer_pref: INTEGER_PREFERENCE				-- An INTEGER pref (numeric spinner)
+			l_array_pref: ARRAY_PREFERENCE					-- An ARRAY [ANY] pref (list)
+			l_string_pref: STRING_PREFERENCE				-- A STRING pref (text field)
+			l_string32_pref: STRING_32_PREFERENCE			-- A STRING_32 pref (unicode text field)
+			l_font_pref: FONT_PREFERENCE					-- An EV_FONT pref (font picker)
+			l_color_pref: COLOR_PREFERENCE					-- An EV_COLOR pref (color picker)
+			l_path_pref: PATH_PREFERENCE					-- A PATH pref (dir/file picker)
+			l_string_list_pref: STRING_LIST_PREFERENCE		-- A list of STRINGs (CSV list)
+			l_path_list_pref: PATH_LIST_PREFERENCE			-- A list of PATHs (CSV list)
+			l_string_choice_pref: STRING_CHOICE_PREFERENCE	-- A list of STRINGs as Choices (combobox)
+			l_path_choice_pref: PATH_CHOICE_PREFERENCE		-- A list of PATHs as Choices (combobox)
 
 			l_font: EV_FONT
 		do
-			create l_factory
-
 			--| Use file default.conf to load default values
-			create l_standard_prefs.make_with_defaults_and_storage (<<"default.conf">>, xml_pref_storage)
+			create l_main_storage.make_with_location ("user.conf")
+			create l_standard_prefs.make_with_defaults_and_storage (<<"default.conf">>, l_main_storage)
+
+			create l_factory
 
 			--| preference under "display"
 			l_manager := l_standard_prefs.new_manager ("display")
@@ -131,12 +198,6 @@ feature -- Testing
 		end
 
 feature {NONE} -- Implementation
-
-	xml_pref_storage: PREFERENCES_STORAGE_XML
-			-- `xml_pref_storage' preferences in XML
-		do
-	 		create Result.make_with_location ("user.conf")
-	 	end
 
 	Save_modified_values_only: BOOLEAN = True
 	Save_all_values: BOOLEAN = False
