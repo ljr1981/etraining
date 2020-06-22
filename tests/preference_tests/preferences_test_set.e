@@ -34,6 +34,11 @@ feature -- Testing
 						(i.e. l_my_bool_pref := l_factory.new_boolean_preference_value (l_manager, "domain.pref_name", [True/False]))
 				5. Rinse-and-Repeat 4 to 4C for each Domain + Preference item
 					you want in your Preferences set (list)
+				6. `set_save_defaults ([True/False])' - When the user makes changes
+					to one or more preference item(s), you have a choice to either
+					save just the changes or all defined preferences.
+				7. The final step is to save the Preferences (with it items) to
+					whatever repository you choose (XML, Registry, etc).
 					
 				STORAGE NOTES
 				=============
@@ -194,6 +199,9 @@ feature -- Testing
 
 			create l_backup_storage.make_with_location ("backup.conf")
 			l_standard_prefs.export_to_storage (l_backup_storage, Save_all_values)
+
+			l_standard_prefs.set_save_defaults (True)
+			l_standard_prefs.save_preferences
 		end
 
 feature {NONE} -- Implementation
