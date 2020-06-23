@@ -307,6 +307,64 @@ feature {NONE} -- Bertrand Example Support
 	sum,m,n: INTEGER
 			-- Example sum, lower, and upper bounds
 
+feature -- Symbolic Forms of Loops
+
+	symbolic_loop_tests
+			-- These read more like their math-symbol counterparts
+		note
+			EIS: "src=https://www.eiffel.org/blog/Alexander%%20Kogtenkov/2020/03/symbolic-forms-loops"
+			EIS: "name=the_backwards_E", "src=https://en.wikipedia.org/wiki/Existential_quantification"
+			EIS: "name=logical_conjunction_or_and_symbol_∧",
+					"src=https://en.wikipedia.org/wiki/Logical_conjunction"
+		local
+			l_result: BOOLEAN
+		do
+			bertrand_example_prep_work
+
+				-- How we write a BOOLEAN "for all instances" normally ...
+			l_result := across kids as ic all age [ic.item] > born end
+									--     ^-- this is basis of the change below.
+
+				-- Same thing in symbolic form ...
+			l_result := ∀ ic: kids ¦ age [ic] > born
+				-- The upside-down A symbol is the universal quantifier from predicate logic.
+				--	... As others noted, it means that the stated assertion(s) holds True
+				--	"for all instances" of the given variable (here, s).
+
+				-- Now we do a BOOLEAN "for some instances" normally ...
+			l_result := across kids as ic some age [ic.item] = 2 end -- we're looking for 2-year-olds
+
+				-- Same in symbolic form ...
+			l_result := ∃ ic: kids ¦ age [ic] = 2
+				-- The backwards E symbol stands for "there exists exactly one" or
+				--	"there exists at least one". (see EIS link above)
+
+				-- A few notes about the notation:
+
+				-- 1. In the symbolic forms of loops, there is no need to specify
+				--	explicit access to the element at the cursor position by calling
+				--	feature item (e.g. "ic.item").
+				-- 2. There is no final keyword "end".
+				-- 3. Several properties can be specified by using conjunction
+				--	(or other boolean operators as needed), e.g.
+
+--			l_result := ∃ ic: kids ¦ age [ic] >0 ∧ age [ic] = 2 		-- not quite working yet
+			l_result := ∃ ic: kids ¦ age [ic] >0 and age [ic] = 2 	-- we must still "and"
+
+				-- FINALLY: We want to iterate over a set ...
+--			⟳ ic: kids ¦ print (ic.out) ⟲							-- apparently not working either
+--			⟳ c: s ¦ g (c); h (c) ⟲									-- nor this ...
+		end
+
+feature {NONE} -- Symbolic Support
+
+	g (c: CHARACTER) do  end
+	h (c: CHARACTER) do  end
+
+	kids: ARRAY [INTEGER] once Result := <<1,2,3,4>> end
+	born: INTEGER = 0
+	age: ARRAY [INTEGER] once Result := <<1,2,3,4>> end
+
 feature -- Across-From Combined
 
 	across_and_from_can_be_combined_tests
