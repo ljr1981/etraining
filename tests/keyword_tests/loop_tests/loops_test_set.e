@@ -41,8 +41,9 @@ feature -- From Loops
 				-- An ARRAY [INTEGER] is:	<<1, 2, 3, 4, 5>>
 				-- An ARRAY [BOOLEAN] is: 	<<True, False, True, True>>
 				-- An ARRAY [REAL] is: 		<<1.1, 2.7, 3.4, 5.1>>
-				-- In all cases << signals ARRAY and the manifest type signals
-				--	the [G] of ARRAY [G]
+				-- In all cases "<<" signals the start of an ARRAY and the
+				--	manifest type of the contents signals the [G] type of an ARRAY [G]
+				-- The ">>" signals the end of the manifest ARRAY.
 
 				-- Using a from-loop (like above) ...
 			from
@@ -94,8 +95,9 @@ feature -- Across Loops
 				-- An ARRAY [INTEGER] is:	<<1, 2, 3, 4, 5>>
 				-- An ARRAY [BOOLEAN] is: 	<<True, False, True, True>>
 				-- An ARRAY [REAL] is: 		<<1.1, 2.7, 3.4, 5.1>>
-				-- In all cases << signals ARRAY and the manifest type signals
-				--	the [G] of ARRAY [G]
+				-- In all cases "<<" signals the start of an ARRAY and the
+				--	manifest type of the contents signals the [G] type of an ARRAY [G]
+				-- The ">>" signals the end of the manifest ARRAY.
 
 				-- Using a from-loop (like above) ...
 			from
